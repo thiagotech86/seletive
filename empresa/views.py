@@ -49,4 +49,11 @@ def nova_empresa(request):
 
 
 def empresas(request):
-    return render(request,'empresa.html')
+    empresas=Empresa.objects.all()
+    return render(request,'empresa.html', {'empresas':empresas})
+
+def excluir_empresa(request, id):
+    empresa = Empresa.objects.get(id=id) # acessar uma única empresa através do id requisitado
+    empresa.delete()
+    messages.add_message(request, constants.SUCCESS, 'Empresa excluída com sucesso')
+    return redirect('/home/empresas')

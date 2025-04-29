@@ -25,6 +25,9 @@ class Empresa(models.Model):
     def __str__(self):
         return self.nome
     
+    def qtd_vagas(self):
+        return Vagas.objects.filter(empresa__id=self.id).count() # Contagem de vagas por empresa de mesmo id
+    
 class Vagas(models.Model):
     choices_experiencia = (
         ('J', 'Júnior'),
